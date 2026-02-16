@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peacefulshoplet - Site Map</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .page-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .page-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        .arrow {
+            font-size: 32px;
+            color: #667eea;
+            margin: 16px 0;
+        }
+        .feature-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin: 4px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1 class="text-4xl font-bold text-center mb-4">🗺️ Peacefulshoplet Site Map</h1>
+        <p class="text-center text-gray-600 mb-8">Visual guide to your website structure</p>
+
+        <div class="grid md:grid-cols-3 gap-8 mb-8">
+            <!-- Main Store -->
+            <div class="page-box" onclick="window.open('index.html', '_blank')">
+                <div class="text-4xl mb-4">🏠</div>
+                <h2 class="text-2xl font-bold mb-2">Main Store</h2>
+                <p class="text-sm mb-4">index.html</p>
+                <div class="border-t border-white/30 pt-4 mt-4">
+                    <div class="feature-badge">Product Carousel</div>
+                    <div class="feature-badge">Categories</div>
+                    <div class="feature-badge">Shopping Cart</div>
+                    <div class="feature-badge">Contact Form</div>
+                </div>
+                <p class="text-xs mt-4 opacity-80">Public URL: yoursite.com</p>
+            </div>
+
+            <!-- Login Page -->
+            <div class="page-box" onclick="window.open('login.html', '_blank')">
+                <div class="text-4xl mb-4">🔐</div>
+                <h2 class="text-2xl font-bold mb-2">Admin Login</h2>
+                <p class="text-sm mb-4">login.html</p>
+                <div class="border-t border-white/30 pt-4 mt-4">
+                    <div class="feature-badge">Secure Login</div>
+                    <div class="feature-badge">Demo Credentials</div>
+                    <div class="feature-badge">Password Protected</div>
+                </div>
+                <p class="text-xs mt-4 opacity-80">URL: yoursite.com/login</p>
+            </div>
+
+            <!-- Admin Panel -->
+            <div class="page-box" onclick="window.open('admin.html', '_blank')">
+                <div class="text-4xl mb-4">⚙️</div>
+                <h2 class="text-2xl font-bold mb-2">Admin Dashboard</h2>
+                <p class="text-sm mb-4">admin.html</p>
+                <div class="border-t border-white/30 pt-4 mt-4">
+                    <div class="feature-badge">Add Products</div>
+                    <div class="feature-badge">Manage Inventory</div>
+                    <div class="feature-badge">View Orders</div>
+                    <div class="feature-badge">Statistics</div>
+                </div>
+                <p class="text-xs mt-4 opacity-80">URL: yoursite.com/admin</p>
+            </div>
+        </div>
+
+        <!-- Navigation Flow -->
+        <div class="bg-gray-100 p-8 rounded-lg mb-8">
+            <h3 class="text-2xl font-bold mb-4 text-center">📍 Navigation Flow</h3>
+            
+            <div class="text-center space-y-4">
+                <div class="inline-block bg-blue-100 px-6 py-3 rounded-lg">
+                    <strong>🏠 Main Store</strong><br>
+                    <span class="text-sm">Customer shops here</span>
+                </div>
+                
+                <div class="arrow">↓</div>
+                <div class="text-sm text-gray-600">Click "Admin Login" icon</div>
+                <div class="arrow">↓</div>
+                
+                <div class="inline-block bg-yellow-100 px-6 py-3 rounded-lg">
+                    <strong>🔐 Login Page</strong><br>
+                    <span class="text-sm">Enter credentials</span>
+                </div>
+                
+                <div class="arrow">↓</div>
+                <div class="text-sm text-gray-600">Successful login</div>
+                <div class="arrow">↓</div>
+                
+                <div class="inline-block bg-green-100 px-6 py-3 rounded-lg">
+                    <strong>⚙️ Admin Panel</strong><br>
+                    <span class="text-sm">Manage store</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Behavior -->
+        <div class="bg-purple-50 p-8 rounded-lg mb-8">
+            <h3 class="text-2xl font-bold mb-4 text-center">🎨 Category Navigation</h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-bold mb-2">❌ WRONG (Old Behavior)</h4>
+                    <div class="bg-red-100 p-4 rounded text-sm">
+                        Click "Aso Ebi" → Goes to new page<br>
+                        Click "Yoruba" → Goes to new page<br>
+                        Click "Igbo" → Goes to new page
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-2">✅ CORRECT (Fixed)</h4>
+                    <div class="bg-green-100 p-4 rounded text-sm">
+                        Click "Aso Ebi" → Stays on page, scrolls to products, filters<br>
+                        Click "Yoruba" → Stays on page, scrolls to products, filters<br>
+                        Click "Igbo" → Stays on page, scrolls to products, filters
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Optional Demo Page -->
+        <div class="bg-gray-50 p-6 rounded-lg mb-8">
+            <h3 class="text-xl font-bold mb-3">🧪 Optional Test Page</h3>
+            <div class="flex items-center justify-between">
+                <div>
+                    <strong>Image API Demo</strong><br>
+                    <span class="text-sm text-gray-600">image-api-demo.html</span><br>
+                    <span class="text-xs text-gray-500">Not in main navigation - for testing only</span>
+                </div>
+                <button onclick="window.open('image-api-demo.html', '_blank')" 
+                        class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700">
+                    Open Demo
+                </button>
+            </div>
+        </div>
+
+        <!-- URL Examples -->
+        <div class="border-t pt-6">
+            <h3 class="text-xl font-bold mb-4">🌐 Your URLs After Deployment</h3>
+            <div class="space-y-2 text-sm">
+                <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                    <span>Main Store:</span>
+                    <code class="bg-white px-3 py-1 rounded">https://peacefulshoplet.vercel.app</code>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                    <span>Admin Login:</span>
+                    <code class="bg-white px-3 py-1 rounded">https://peacefulshoplet.vercel.app/login</code>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                    <span>Admin Panel:</span>
+                    <code class="bg-white px-3 py-1 rounded">https://peacefulshoplet.vercel.app/admin</code>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                    <span>Image Demo:</span>
+                    <code class="bg-white px-3 py-1 rounded">https://peacefulshoplet.vercel.app/image-api-demo</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="mt-8 text-center">
+            <h3 class="text-lg font-bold mb-4">🚀 Quick Actions</h3>
+            <div class="flex flex-wrap justify-center gap-3">
+                <button onclick="window.open('index.html', '_blank')" 
+                        class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                    View Store
+                </button>
+                <button onclick="window.open('login.html', '_blank')" 
+                        class="bg-yellow-600 text-white px-6 py-2 rounded-lg hover:bg-yellow-700">
+                    Admin Login
+                </button>
+                <button onclick="window.open('admin.html', '_blank')" 
+                        class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700">
+                    Admin Panel
+                </button>
+                <button onclick="window.open('NAVIGATION_GUIDE.md', '_blank')" 
+                        class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700">
+                    Navigation Guide
+                </button>
+            </div>
+        </div>
+
+        <!-- Credentials Reminder -->
+        <div class="mt-8 bg-yellow-50 border-l-4 border-yellow-500 p-4">
+            <h4 class="font-bold mb-2">🔑 Demo Login Credentials</h4>
+            <p class="text-sm">
+                <strong>Email:</strong> admin@peacefulshoplet.com<br>
+                <strong>Password:</strong> admin123
+            </p>
+            <p class="text-xs text-gray-600 mt-2">
+                ⚠️ Change these credentials in production!
+            </p>
+        </div>
+    </div>
+
+    <div class="text-center mt-8 text-white">
+        <p class="text-sm">Peacefulshoplet - Nigerian Fashion E-commerce Platform</p>
+        <p class="text-xs mt-2 opacity-80">All pages work together seamlessly ✨</p>
+    </div>
+</body>
+</html>

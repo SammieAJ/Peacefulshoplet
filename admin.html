@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peacefulshoplet Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2D1810;
+            --accent: #C9A86A;
+            --soft-cream: #F5F1EA;
+            --deep-brown: #1A0F0A;
+        }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background: var(--soft-cream);
+        }
+
+        .display-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .sidebar {
+            background: linear-gradient(180deg, var(--primary) 0%, var(--deep-brown) 100%);
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--accent);
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--deep-brown);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-top: 12px;
+        }
+
+        .product-item {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .product-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--deep-brown) 100%);
+            color: var(--accent);
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .nav-item {
+            color: var(--accent);
+            padding: 12px 20px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(201, 168, 106, 0.2);
+        }
+
+        .image-upload-zone {
+            border: 2px dashed var(--accent);
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-upload-zone:hover {
+            background: rgba(201, 168, 106, 0.05);
+            border-color: var(--primary);
+        }
+
+        .image-upload-zone.dragover {
+            background: rgba(201, 168, 106, 0.1);
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="sidebar w-64 p-6 hidden md:block">
+            <div class="mb-8">
+                <h1 class="display-font text-2xl font-bold text-[var(--accent)]">Peacefulshoplet</h1>
+                <p class="text-[var(--accent)]/70 text-sm">Admin Panel</p>
+            </div>
+
+            <nav class="space-y-2">
+                <div class="nav-item active" onclick="showSection('dashboard')">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    <span>Dashboard</span>
+                </div>
+                <div class="nav-item" onclick="showSection('products')">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                    </svg>
+                    <span>Products</span>
+                </div>
+                <div class="nav-item" onclick="showSection('add-product')">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    <span>Add Product</span>
+                </div>
+                <div class="nav-item" onclick="showSection('orders')">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+                    <span>Orders</span>
+                </div>
+            </nav>
+
+            <div class="mt-auto pt-8">
+                <button onclick="logout()" class="nav-item w-full text-left">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                    </svg>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 md:p-8 overflow-y-auto">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section-content">
+                <h2 class="display-font text-3xl font-bold text-[var(--primary)] mb-8">Dashboard</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="stat-card">
+                        <h3 class="text-4xl display-font font-bold mb-2" id="total-products">0</h3>
+                        <p class="text-white/80">Total Products</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 class="text-4xl display-font font-bold mb-2" id="total-orders">0</h3>
+                        <p class="text-white/80">Total Orders</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 class="text-4xl display-font font-bold mb-2" id="total-revenue">₦0</h3>
+                        <p class="text-white/80">Total Revenue</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="display-font text-2xl font-bold text-[var(--primary)] mb-4">Quick Actions</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="showSection('add-product')" class="btn-primary">Add New Product</button>
+                        <button onclick="showSection('products')" class="btn-primary">View All Products</button>
+                        <button onclick="window.open('index.html', '_blank')" class="btn-primary">View Store</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section id="products" class="section-content hidden">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="display-font text-3xl font-bold text-[var(--primary)]">All Products</h2>
+                    <button onclick="showSection('add-product')" class="btn-primary">Add New Product</button>
+                </div>
+
+                <div class="card">
+                    <div class="mb-4">
+                        <input type="text" id="search-products" placeholder="Search products..." class="input-field" onkeyup="searchProducts()">
+                    </div>
+                    <div id="products-list" class="space-y-4">
+                        <!-- Products will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Add Product Section -->
+            <section id="add-product" class="section-content hidden">
+                <h2 class="display-font text-3xl font-bold text-[var(--primary)] mb-8">Add New Product</h2>
+
+                <form id="product-form" class="card" onsubmit="handleProductSubmit(event)">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-[var(--primary)] mb-2">Product Name *</label>
+                            <input type="text" name="name" required class="input-field" placeholder="e.g., Royal Aso Ebi Gown">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-[var(--primary)] mb-2">Category *</label>
+                            <select name="category" required class="input-field">
+                                <option value="">Select Category</option>
+                                <option value="aso-ebi">Aso Ebi</option>
+                                <option value="yoruba">Yoruba Traditional</option>
+                                <option value="igbo">Igbo Attire</option>
+                                <option value="classic">Classic Gowns</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-[var(--primary)] mb-2">Price (₦) *</label>
+                            <input type="number" name="price" required class="input-field" placeholder="e.g., 85000" min="0" step="100">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-[var(--primary)] mb-2">Stock Quantity *</label>
+                            <input type="number" name="stock" required class="input-field" placeholder="e.g., 10" min="0">
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-[var(--primary)] mb-2">Description *</label>
+                            <textarea name="description" required class="input-field" rows="4" placeholder="Describe the product..."></textarea>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-[var(--primary)] mb-2">Product Images *</label>
+                            <div class="image-upload-zone" id="image-upload-zone" onclick="document.getElementById('image-input').click()">
+                                <svg class="w-12 h-12 mx-auto text-[var(--accent)] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                </svg>
+                                <p class="text-[var(--primary)] font-medium">Click to upload or drag and drop</p>
+                                <p class="text-[var(--primary)]/60 text-sm mt-2">PNG, JPG, WEBP up to 5MB</p>
+                            </div>
+                            <input type="file" id="image-input" name="image" accept="image/*" class="hidden" onchange="handleImageUpload(event)" required>
+                            <div id="image-preview" class="mt-4"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 mt-6">
+                        <button type="submit" class="btn-primary">
+                            <span id="submit-text">Add Product</span>
+                            <span id="submit-loading" class="loading hidden"></span>
+                        </button>
+                        <button type="button" onclick="resetForm()" class="btn-primary" style="background: #6b7280;">Reset</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders" class="section-content hidden">
+                <h2 class="display-font text-3xl font-bold text-[var(--primary)] mb-8">Orders</h2>
+
+                <div class="card">
+                    <p class="text-[var(--primary)]/60 text-center py-8">No orders yet. Orders will appear here once customers make purchases.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

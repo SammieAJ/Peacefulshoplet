@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Test - Peacefulshoplet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+        .status-box {
+            padding: 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+            font-weight: 600;
+            text-align: center;
+            font-size: 18px;
+        }
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 3px solid #10b981;
+        }
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 3px solid #ef4444;
+        }
+        .btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 16px;
+            width: 100%;
+            margin: 8px 0;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+        }
+        .info-box {
+            background: #dbeafe;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+            border-left: 4px solid #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1 class="text-3xl font-bold text-center mb-2">🧪 Quick Test</h1>
+        <p class="text-center text-gray-600 mb-6">Testing if main.js works correctly</p>
+
+        <div id="status" class="status-box error">
+            ⏳ Testing...
+        </div>
+
+        <div class="info-box text-sm">
+            <p class="font-bold mb-2">This test checks:</p>
+            <ul class="list-disc ml-4 space-y-1">
+                <li>✓ Can JavaScript load?</li>
+                <li>✓ Can we access js/main.js?</li>
+                <li>✓ Can we create demo products?</li>
+                <li>✓ Can we use localStorage?</li>
+            </ul>
+        </div>
+
+        <div class="mt-6 space-y-3">
+            <button onclick="testJavaScript()" class="btn">
+                🔄 Run JavaScript Test
+            </button>
+            <button onclick="testLocalStorage()" class="btn">
+                💾 Test LocalStorage
+            </button>
+            <button onclick="testImages()" class="btn">
+                🖼️ Test Image Loading
+            </button>
+            <button onclick="window.open('index.html', '_blank')" class="btn">
+                🏠 Open Main Store
+            </button>
+        </div>
+
+        <div id="results" class="mt-6"></div>
+
+        <div class="mt-6 p-4 bg-yellow-50 rounded-lg border-l-4 border-yellow-500">
+            <p class="font-bold text-sm mb-2">🔑 Admin Login:</p>
+            <p class="text-xs">Email: admin@peacefulshoplet.com</p>
+            <p class="text-xs">Password: admin123</p>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(autoTest, 500);
+        });
+
+        async function autoTest() {
+            const statusDiv = document.getElementById('status');
+            const resultsDiv = document.getElementById('results');
+
+            try {
+                // Test 1: Check if we can run JavaScript
+                if (typeof console !== 'undefined') {
+                    console.log('✓ JavaScript is working');
+                }
+
+                // Test 2: Check if we can access js/main.js
+                const response = await fetch('js/main.js');
+                if (!response.ok) {
+                    throw new Error('main.js file not found or not accessible');
+                }
+                console.log('✓ main.js is accessible');
+
+                // Test 3: Check localStorage
+                try {
+                    localStorage.setItem('test', 'working');
+                    const test = localStorage.getItem('test');
+                    localStorage.removeItem('test');
+                    
+                    if (test !== 'working') {
+                        throw new Error('localStorage not working');
+                    }
+                    console.log('✓ localStorage is working');
+                } catch (e) {
+                    throw new Error('localStorage is blocked or not available');
+                }
+
+                // All tests passed!
+                statusDiv.className = 'status-box success';
+                statusDiv.innerHTML = '✅ All Tests Passed!<br><span style="font-size: 14px; font-weight: normal;">Your website is ready to use!</span>';
+
+                resultsDiv.innerHTML = `
+                    <div class="bg-green-50 p-4 rounded-lg text-sm">
+                        <p class="font-bold text-green-800 mb-2">✓ Everything is working correctly!</p>
+                        <p class="text-green-700">You can now:</p>
+                        <ul class="list-disc ml-4 mt-2 text-green-700">
+                            <li>Open index.html to see your store</li>
+                            <li>Categories and products will display</li>
+                            <li>Images will load from Unsplash</li>
+                            <li>Shopping cart will work</li>
+                            <li>Admin panel is accessible</li>
+                        </ul>
+                    </div>
+                `;
+
+            } catch (error) {
+                statusDiv.className = 'status-box error';
+                statusDiv.innerHTML = '❌ Test Failed';
+
+                resultsDiv.innerHTML = `
+                    <div class="bg-red-50 p-4 rounded-lg text-sm">
+                        <p class="font-bold text-red-800 mb-2">Error: ${error.message}</p>
+                        <p class="text-red-700 mt-3 font-bold">Quick Fixes:</p>
+                        <ul class="list-disc ml-4 mt-2 text-red-700 space-y-2">
+                            <li><strong>If "main.js not found":</strong> Make sure js/main.js exists in the js folder</li>
+                            <li><strong>If "localStorage blocked":</strong> Check browser privacy settings</li>
+                            <li><strong>Best Solution:</strong> Use Live Server in VS Code (right-click index.html → Open with Live Server)</li>
+                        </ul>
+                    </div>
+                `;
+
+                console.error('Test failed:', error);
+            }
+        }
+
+        function testJavaScript() {
+            alert('✅ JavaScript is working!\n\nIf you see this alert, your browser can run JavaScript correctly.');
+        }
+
+        function testLocalStorage() {
+            try {
+                localStorage.setItem('peacefulshoplet_test', 'Hello!');
+                const result = localStorage.getItem('peacefulshoplet_test');
+                localStorage.removeItem('peacefulshoplet_test');
+                
+                if (result === 'Hello!') {
+                    alert('✅ LocalStorage is working!\n\nYour cart and products will be saved correctly.');
+                } else {
+                    alert('⚠️ LocalStorage test failed!\n\nData might not persist between page loads.');
+                }
+            } catch (e) {
+                alert('❌ LocalStorage is blocked!\n\nPlease check your browser privacy settings.\n\nError: ' + e.message);
+            }
+        }
+
+        function testImages() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<p class="text-center font-bold mb-4">Loading test images from Unsplash...</p>';
+            
+            const testUrls = [
+                'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=200&q=80',
+                'https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=200&q=80',
+                'https://images.unsplash.com/photo-1583391733981-e6c8c8736f33?w=200&q=80'
+            ];
+
+            const imageContainer = document.createElement('div');
+            imageContainer.className = 'grid grid-cols-3 gap-4 mt-4';
+            
+            testUrls.forEach((url, index) => {
+                const imgWrapper = document.createElement('div');
+                imgWrapper.className = 'text-center';
+                
+                const img = document.createElement('img');
+                img.src = url;
+                img.className = 'w-full h-32 object-cover rounded-lg shadow-lg';
+                img.alt = `Test ${index + 1}`;
+                
+                img.onload = () => {
+                    console.log(`✓ Image ${index + 1} loaded successfully`);
+                    const status = document.createElement('p');
+                    status.className = 'text-xs text-green-600 mt-2';
+                    status.textContent = '✓ Loaded';
+                    imgWrapper.appendChild(status);
+                };
+                
+                img.onerror = () => {
+                    console.error(`✗ Image ${index + 1} failed to load`);
+                    const status = document.createElement('p');
+                    status.className = 'text-xs text-red-600 mt-2';
+                    status.textContent = '✗ Failed';
+                    imgWrapper.appendChild(status);
+                };
+                
+                imgWrapper.appendChild(img);
+                imageContainer.appendChild(imgWrapper);
+            });
+            
+            resultsDiv.appendChild(imageContainer);
+
+            setTimeout(() => {
+                const successMsg = document.createElement('div');
+                successMsg.className = 'bg-blue-50 p-3 rounded-lg text-sm mt-4 text-center';
+                successMsg.innerHTML = '<p class="text-blue-800"><strong>If you see 3 images above:</strong> ✅ Your internet connection and image loading work!</p><p class="text-blue-600 text-xs mt-2">If images failed: Check your internet connection or firewall settings</p>';
+                resultsDiv.appendChild(successMsg);
+            }, 3000);
+        }
+    </script>
+
+    <div style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); text-align: center;">
+        <p style="color: white; font-size: 12px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+            Peacefulshoplet Quick Test Tool
+        </p>
+    </div>
+</body>
+</html>

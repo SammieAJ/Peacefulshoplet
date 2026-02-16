@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peacefulshoplet - Troubleshooting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 900px;
+            margin: 20px auto;
+        }
+        .test-item {
+            padding: 16px;
+            margin: 12px 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .test-pass {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+        }
+        .test-fail {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+        }
+        .test-pending {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+        }
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+        }
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .status-pass { background: #10b981; }
+        .status-fail { background: #ef4444; }
+        .status-pending { background: #f59e0b; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1 class="text-3xl font-bold text-center mb-2">🔧 Peacefulshoplet Troubleshooting</h1>
+        <p class="text-center text-gray-600 mb-6">Testing all components...</p>
+
+        <button onclick="runAllTests()" class="btn w-full mb-6">
+            🔄 Run All Tests
+        </button>
+
+        <div id="test-results">
+            <div class="test-pending test-item">
+                <span><span class="status-dot status-pending"></span>Click "Run All Tests" to begin</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 class="text-2xl font-bold mb-4">🔑 Admin Login Credentials</h2>
+        <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+            <p class="font-bold mb-2">Use these to login:</p>
+            <p><strong>Email:</strong> <code class="bg-white px-2 py-1 rounded">admin@peacefulshoplet.com</code></p>
+            <p><strong>Password:</strong> <code class="bg-white px-2 py-1 rounded">admin123</code></p>
+        </div>
+        <div class="mt-4 flex gap-3">
+            <button onclick="window.open('login.html', '_blank')" class="btn flex-1">
+                🔐 Open Login Page
+            </button>
+            <button onclick="window.open('admin.html', '_blank')" class="btn flex-1">
+                ⚙️ Open Admin Panel
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 class="text-2xl font-bold mb-4">📝 Quick Fixes</h2>
+        
+        <div class="space-y-4">
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <h3 class="font-bold mb-2">❌ Categories not showing images?</h3>
+                <p class="text-sm mb-2"><strong>Fix:</strong> Open browser console (F12) and check for errors</p>
+                <button onclick="testImages()" class="btn text-sm">Test Image Loading</button>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <h3 class="font-bold mb-2">❌ Products not displaying?</h3>
+                <p class="text-sm mb-2"><strong>Fix:</strong> Clear localStorage and refresh</p>
+                <button onclick="clearAndReload()" class="btn text-sm">Clear & Reload</button>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <h3 class="font-bold mb-2">❌ Admin login not working?</h3>
+                <p class="text-sm mb-2"><strong>Make sure you use:</strong></p>
+                <p class="text-xs">Email: admin@peacefulshoplet.com</p>
+                <p class="text-xs">Password: admin123</p>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <h3 class="font-bold mb-2">❌ Need to use Live Server?</h3>
+                <p class="text-sm mb-2"><strong>In VS Code:</strong></p>
+                <ol class="text-xs list-decimal ml-4">
+                    <li>Install "Live Server" extension</li>
+                    <li>Right-click index.html</li>
+                    <li>Select "Open with Live Server"</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function runAllTests() {
+            const resultsDiv = document.getElementById('test-results');
+            resultsDiv.innerHTML = '<div class="test-pending test-item">Running tests...</div>';
+            
+            const tests = [];
+
+            // Test 1: Check if files exist
+            tests.push({
+                name: 'Main Store (index.html)',
+                test: async () => {
+                    try {
+                        const response = await fetch('index.html');
+                        return response.ok;
+                    } catch {
+                        return false;
+                    }
+                }
+            });
+
+            // Test 2: Check JS files
+            tests.push({
+                name: 'JavaScript files (main.js)',
+                test: async () => {
+                    try {
+                        const response = await fetch('js/main.js');
+                        return response.ok;
+                    } catch {
+                        return false;
+                    }
+                }
+            });
+
+            // Test 3: Check admin files
+            tests.push({
+                name: 'Admin pages (login.html, admin.html)',
+                test: async () => {
+                    try {
+                        const login = await fetch('login.html');
+                        const admin = await fetch('admin.html');
+                        return login.ok && admin.ok;
+                    } catch {
+                        return false;
+                    }
+                }
+            });
+
+            // Test 4: Check localStorage
+            tests.push({
+                name: 'Browser localStorage',
+                test: async () => {
+                    try {
+                        localStorage.setItem('test', 'test');
+                        const result = localStorage.getItem('test') === 'test';
+                        localStorage.removeItem('test');
+                        return result;
+                    } catch {
+                        return false;
+                    }
+                }
+            });
+
+            // Test 5: Check if images can load
+            tests.push({
+                name: 'External images (Unsplash)',
+                test: async () => {
+                    return new Promise((resolve) => {
+                        const img = new Image();
+                        img.onload = () => resolve(true);
+                        img.onerror = () => resolve(false);
+                        img.src = 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=100&q=80';
+                    });
+                }
+            });
+
+            // Run all tests
+            const results = [];
+            for (const test of tests) {
+                const passed = await test.test();
+                results.push({ name: test.name, passed });
+            }
+
+            // Display results
+            resultsDiv.innerHTML = results.map(result => `
+                <div class="test-item ${result.passed ? 'test-pass' : 'test-fail'}">
+                    <span><span class="status-dot ${result.passed ? 'status-pass' : 'status-fail'}"></span>${result.name}</span>
+                    <span class="font-bold">${result.passed ? '✅ PASS' : '❌ FAIL'}</span>
+                </div>
+            `).join('');
+
+            const allPassed = results.every(r => r.passed);
+            
+            if (allPassed) {
+                resultsDiv.innerHTML += `
+                    <div class="bg-green-100 p-4 rounded-lg mt-4 text-center">
+                        <h3 class="font-bold text-green-800">🎉 All Tests Passed!</h3>
+                        <p class="text-sm text-green-700">Your website is ready to use!</p>
+                        <button onclick="window.open('index.html', '_blank')" class="btn mt-3">
+                            Open Main Store
+                        </button>
+                    </div>
+                `;
+            } else {
+                resultsDiv.innerHTML += `
+                    <div class="bg-red-100 p-4 rounded-lg mt-4">
+                        <h3 class="font-bold text-red-800">⚠️ Some Tests Failed</h3>
+                        <p class="text-sm text-red-700 mt-2">Try these fixes:</p>
+                        <ul class="text-xs mt-2 list-disc ml-4">
+                            <li>Make sure all files are in the correct folders</li>
+                            <li>Open with Live Server (not directly in browser)</li>
+                            <li>Check browser console (F12) for errors</li>
+                            <li>Try clearing cache and reload</li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+
+        function testImages() {
+            const testUrls = [
+                'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=100',
+                'https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=100',
+                'https://images.unsplash.com/photo-1583391733981-e6c8c8736f33?w=100'
+            ];
+
+            alert('Loading 3 test images... Check if they appear below.');
+            
+            const container = document.createElement('div');
+            container.className = 'card';
+            container.innerHTML = '<h3 class="font-bold mb-4">Test Images:</h3>';
+            
+            testUrls.forEach((url, i) => {
+                const img = document.createElement('img');
+                img.src = url;
+                img.style.width = '100px';
+                img.style.height = '100px';
+                img.style.objectFit = 'cover';
+                img.style.margin = '8px';
+                img.style.display = 'inline-block';
+                img.style.borderRadius = '8px';
+                img.onload = () => console.log(`Image ${i + 1} loaded successfully`);
+                img.onerror = () => console.error(`Image ${i + 1} failed to load`);
+                container.appendChild(img);
+            });
+            
+            document.body.appendChild(container);
+        }
+
+        function clearAndReload() {
+            if (confirm('This will clear all saved data (cart, products) and reload. Continue?')) {
+                localStorage.clear();
+                alert('localStorage cleared! Reloading page...');
+                window.location.reload();
+            }
+        }
+
+        // Run tests automatically on load
+        window.addEventListener('load', () => {
+            setTimeout(runAllTests, 500);
+        });
+    </script>
+
+    <div class="text-center mt-6 text-white">
+        <p class="text-sm">Peacefulshoplet Troubleshooting Tool</p>
+        <p class="text-xs mt-1 opacity-80">If issues persist, check the browser console (F12)</p>
+    </div>
+</body>
+</html>
